@@ -93,7 +93,7 @@ trait Boardable
      */
     public function getPoints()
     {
-        return $this->board->points;
+        return ($this->board ? $this->board->points : null);
     }
 
     /**
@@ -103,7 +103,7 @@ trait Boardable
      */
     public function getRank()
     {
-        return $this->board->rank;
+        return ($this->board ? $this->board->rank : null);
     }
 
     /**
@@ -111,7 +111,7 @@ trait Boardable
      */
     public function isBlacklisted()
     {
-        return $this->board->blacklisted;
+        return $this->board && $this->board->blacklisted;
     }
 
     /**
