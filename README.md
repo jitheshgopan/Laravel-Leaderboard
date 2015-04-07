@@ -14,7 +14,7 @@ First, pull in the package through Composer.
 
 ```js
 "require": {
-    "kaom/laravel-leaderboard": "~1.0"
+    "jitheshgopan/laravel-leaderboard": "~1.0"
 }
 ```
 
@@ -22,7 +22,7 @@ And then include the service provider within `app/config/app.php`.
 
 ```php
 'providers' => [
-    'Kaom\Leaderboard\LeaderboardServiceProvider'
+    'Jitheshgopan\Leaderboard\LeaderboardServiceProvider'
 ];
 ```
 
@@ -73,7 +73,7 @@ try {
     if($user->redeem($product->price)) {
         event(new ProductWasPurchased($product, $user));
     }
-} catch(\Kaom\Leaderboard\Exceptions\InsufficientFundsException $e) {
+} catch(\Jitheshgopan\Leaderboard\Exceptions\InsufficientFundsException $e) {
     // Not enough points
     dd($e);
 }

@@ -1,5 +1,5 @@
 {
-    "name": "kaom/laravel-leaderboard",
+    "name": "jitheshgopan/laravel-leaderboard",
     "description": "Points and Ranks for Eloquent models.",
     "require": {
         "php": ">=5.4.0",
@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Kaom\\Leaderboard\\": "src/"
+            "Jitheshgopan\\Leaderboard\\": "src/"
         }
     }
 }

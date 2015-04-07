@@ -1,5 +1,5 @@
 <?php
-namespace Kaom\Leaderboard\Exceptions;
+namespace Jitheshgopan\Leaderboard\Exceptions;
 
 use Exception;
 

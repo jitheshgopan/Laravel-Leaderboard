@@ -1,5 +1,5 @@
 <?php
-namespace Kaom\Leaderboard;
+namespace Jitheshgopan\Leaderboard;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -22,8 +22,8 @@ class LeaderboardServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            'Kaom\Leaderboard\Contracts\BoardRepository',
-            'Kaom\Leaderboard\Repositories\EloquentBoardRepository'
+            'Jitheshgopan\Leaderboard\Contracts\BoardRepository',
+            'Jitheshgopan\Leaderboard\Repositories\EloquentBoardRepository'
         );
     }
 }

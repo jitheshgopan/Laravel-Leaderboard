@@ -1,7 +1,7 @@
 <?php
-namespace Kaom\Leaderboard\Traits;
+namespace Jitheshgopan\Leaderboard\Traits;
 
-use Kaom\Leaderboard\Repositories\EloquentBoardRepository;
+use Jitheshgopan\Leaderboard\Repositories\EloquentBoardRepository;
 
 /**
  * Class Boardable.
@@ -119,7 +119,7 @@ trait Boardable
      */
     public function board()
     {
-        return $this->morphOne('Kaom\Leaderboard\Models\Board', 'boardable');
+        return $this->morphOne('Jitheshgopan\Leaderboard\Models\Board', 'boardable');
     }
 
     /**

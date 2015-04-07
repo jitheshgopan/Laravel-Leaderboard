@@ -1,5 +1,5 @@
 <?php
-namespace Kaom\Leaderboard\Contracts;
+namespace Jitheshgopan\Leaderboard\Contracts;
 
 /**
  * Interface BoardRepository.

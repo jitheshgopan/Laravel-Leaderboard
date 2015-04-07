@@ -1,5 +1,5 @@
 <?php
-namespace Kaom\Leaderboard\Models;
+namespace Jitheshgopan\Leaderboard\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

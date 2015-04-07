@@ -1,10 +1,10 @@
 <?php
-namespace Kaom\Leaderboard\Repositories;
+namespace Jitheshgopan\Leaderboard\Repositories;
 
-use Kaom\Leaderboard\Contracts\BoardRepository;
-use Kaom\Leaderboard\Exceptions\BlacklistedException;
-use Kaom\Leaderboard\Exceptions\InsufficientFundsException;
-use Kaom\Leaderboard\Models\Board;
+use Jitheshgopan\Leaderboard\Contracts\BoardRepository;
+use Jitheshgopan\Leaderboard\Exceptions\BlacklistedException;
+use Jitheshgopan\Leaderboard\Exceptions\InsufficientFundsException;
+use Jitheshgopan\Leaderboard\Models\Board;
 
 /**
  * Class EloquentBoardRepository.
@@ -19,7 +19,7 @@ class EloquentBoardRepository implements BoardRepository
     /**
      * Create a new repository instance.
      *
-     * @param \Kaom\Leaderboard\Traits\Boardable $model
+     * @param \Jitheshgopan\Leaderboard\Traits\Boardable $model
      */
     public function __construct($model)
     {
