@@ -45,7 +45,7 @@ class EloquentBoardRepository implements BoardRepository
             );
         }
 
-        $this->calculateRankings();
+        $this->calculateRank();
     }
 
     /**
@@ -152,7 +152,7 @@ class EloquentBoardRepository implements BoardRepository
             SELECT GROUP_CONCAT( points
             ORDER BY points DESC )
             FROM '. $this->getBoard()->getTable() .' )
-            ) AS rank'))->first();
+            ) AS rank'))->where('boardable_id', $this->model->id)->first();
 
         $rank = $rank->rank;
         $board = $this->getBoard();
