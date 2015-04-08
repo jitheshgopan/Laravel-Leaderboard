@@ -149,10 +149,12 @@ trait Boardable
     public static function getTopN($count = 10) {
         $topBoardEntries = EloquentBoardRepository::getTopN(__CLASS__, $count);
         $topItems = [];
-        $topBoardEntries->each(function($boardEntry) use(&$topItems){
+        $rank = 1;
+        $topBoardEntries->each(function($boardEntry) use(&$topItems, &$rank){
             $item = $boardEntry->boardable;
-            $item['leaderboard_rank'] = $boardEntry->rank;
+            $item['leaderboard_rank'] = $rank;
             $topItems[] = $item;
+            $rank++;
         });
         return $topItems;
     }
