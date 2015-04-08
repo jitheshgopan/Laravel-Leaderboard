@@ -1,6 +1,7 @@
 <?php
 namespace Jitheshgopan\Leaderboard\Traits;
 
+use Jitheshgopan\Leaderboard\Models\Board;
 use Jitheshgopan\Leaderboard\Repositories\EloquentBoardRepository;
 
 /**
@@ -18,6 +19,15 @@ trait Boardable
     public function reward($points)
     {
         return $this->leaderboard()->reward($points);
+    }
+
+    /**
+     * Calculate the rank of the user
+     *
+     */
+    public function calculateRank()
+    {
+        return $this->leaderboard()->calculateRank();
     }
 
     /**
@@ -128,5 +138,22 @@ trait Boardable
     protected function leaderboard()
     {
         return new EloquentBoardRepository($this);
+    }
+
+    public static function getIdsOfTopN($count = 10) {
+        $topBoardEntries = EloquentBoardRepository::getTopN(__CLASS__, $count);
+        $topItemIds = $topBoardEntries->lists('boardable_id');
+        return $topItemIds;
+    }
+
+    public static function getTopN($count = 10) {
+        $topBoardEntries = EloquentBoardRepository::getTopN(__CLASS__, $count);
+        $topItems = [];
+        $topBoardEntries->each(function($boardEntry) use(&$topItems){
+            $item = $boardEntry->boardable;
+            $item['leaderboard_rank'] = $boardEntry->rank;
+            $topItems[] = $item;
+        });
+        return $topItems;
     }
 }

@@ -146,14 +146,18 @@ class EloquentBoardRepository implements BoardRepository
     /**
      * Calculate the ranks based on points.
      */
-    protected function calculateRankings()
+    public function calculateRank()
     {
-        $boards = Board::orderBy('points', 'DESC')->get();
+        $rank = $this->getBoard()->select(\DB::raw('FIND_IN_SET( points, (
+            SELECT GROUP_CONCAT( points
+            ORDER BY points DESC )
+            FROM '. $this->getBoard()->getTable() .' )
+            ) AS rank'))->first();
 
-        foreach ($boards as $index => $board) {
-            $board->rank = $index + 1;
-            $board->push();
-        }
+        $rank = $rank->rank;
+        $board = $this->getBoard();
+        $board->rank = $rank;
+        $board->save();
     }
 
     /**
@@ -200,4 +204,22 @@ class EloquentBoardRepository implements BoardRepository
     {
         return $this->model->board();
     }
+
+    /**
+     * Calculate the ranks based on points.
+     */
+    public static function calculateRankings()
+    {
+        $boards = Board::orderBy('points', 'DESC')->get();
+
+        foreach ($boards as $index => $board) {
+            $board->rank = $index + 1;
+            $board->push();
+        }
+    }
+
+    public static function getTopN($boardableType, $count = 10) {
+        return (Board::where('boardable_type', $boardableType)->orderBy('points', 'DESC')->with('boardable')->take($count)->get());
+    }
+
 }
