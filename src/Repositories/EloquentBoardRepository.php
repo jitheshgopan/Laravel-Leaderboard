@@ -194,6 +194,9 @@ class EloquentBoardRepository implements BoardRepository
      */
     protected function getBoard()
     {
+        if(!$this->model->board) {
+            $this->model->board = $this->model->board()->first();
+        }
         return $this->model->board;
     }
 
