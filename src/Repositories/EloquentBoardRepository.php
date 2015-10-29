@@ -222,7 +222,15 @@ class EloquentBoardRepository implements BoardRepository
     }
 
     public static function getTopN($boardableType, $count = 10) {
-        return (Board::where('boardable_type', $boardableType)->orderBy('points', 'DESC')->with('boardable')->take($count)->get());
+        return (self::getTopQuery($boardableType)->take($count)->get());
+    }
+
+    public static function getTopQuery($boardableType) {
+        return (Board::where('boardable_type', $boardableType)->orderBy('points', 'DESC')->with('boardable'));
+    }
+
+    public static function paginateTop($boardableType, $limit) {
+        return self::getTopQuery($boardableType)->paginate($limit);
     }
 
 }

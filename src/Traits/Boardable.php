@@ -103,7 +103,7 @@ trait Boardable
      */
     public function getPoints()
     {
-        return ($this->board ? $this->board->points : null);
+        return ($this->board ? $this->board->points : 0);
     }
 
     /**
@@ -148,14 +148,35 @@ trait Boardable
 
     public static function getTopN($count = 10) {
         $topBoardEntries = EloquentBoardRepository::getTopN(__CLASS__, $count);
-        $topItems = [];
+        $topItems = self::getItemsFromBoardEntries($topBoardEntries);
         $rank = 1;
-        $topBoardEntries->each(function($boardEntry) use(&$topItems, &$rank){
-            $item = $boardEntry->boardable;
-            $item['leaderboard_rank'] = $rank;
-            $topItems[] = $item;
+        foreach($topItems as $key => $item) {
+            $topItems[$key]['leaderboard_rank'] = $rank;
             $rank++;
-        });
+        }
         return $topItems;
+    }
+
+    public static function getTopQuery($count = 10) {
+        $topBoardEntriesQuery = EloquentBoardRepository::getTopQuery(__CLASS__);
+        return $topBoardEntriesQuery;
+    }
+
+    public static function getItemsFromBoardEntries($boardEntries) {
+        $items = [];
+        $boardEntries->each(function($boardEntry) use(&$items){
+            $item = self::getItemFromBoardEntry($boardEntry);
+            $items[] = $item;
+        });
+        return $items;
+    }
+
+    public static function getItemFromBoardEntry($boardEntry) {
+        $item = $boardEntry->boardable;
+        return $item;
+    }
+
+    public static function paginateTop($limit) {
+        return EloquentBoardRepository::getTopQuery(__CLASS__)->paginate($limit);
     }
 }
